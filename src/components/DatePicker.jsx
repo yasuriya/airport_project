@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useState } from "react"
+import moment from "moment"
+import classNames from "classnames"
+import { formatDate } from "../helpers/utils"
+import { v4 as uuidv4 } from "uuid"
 
-function DatePicker({ searchDate, setSearchDate }) {
-  const [currentDate, setCurrentDate] = useState(
-    `${new Date().getDate()}/${new Date().getMonth()}`
-  );
+const dateOptions = [
+  { day: "yesterday", format: moment().subtract(1, "days") },
+  { day: "today", format: moment() },
+  { day: "tomorrow", format: moment().add(1, "days") },
+]
 
-  // const handleCalendar = (e) => {
-  //   console.log(e.target.value);
-  // };
+function DatePicker({ setSearchParams, dateQuery, searchQuery }) {
+  const [currentDate, setCurrentDate] = useState("23/02")
 
-  // console.log(searchDate);
+  const handleDatePicker = (e) => {
+    const params = { date: e.target.value }
+    if (searchQuery) params.search = searchQuery
+
+    setSearchParams(params)
+    setCurrentDate(formatDate(moment(params.date)))
+  }
+
+  const handleDateNavigation = (date) => {
+    setSearchParams({ date: moment(date).format("YYYY-MM-DD") })
+    setCurrentDate(formatDate(moment(date)))
+  }
+
+  const handleClassName = (day, date) =>
+    classNames("date-item", `date-item_${day}`, {
+      "active-day": currentDate === formatDate(date),
+    })
 
   return (
     <div className="search-results__datepicker">
@@ -19,30 +39,24 @@ function DatePicker({ searchDate, setSearchDate }) {
         <input
           type="date"
           className="search-results__calendar"
-          value={searchDate}
-          onChange={(e) => setSearchDate(e.target.value)}
+          value={dateQuery}
+          onChange={handleDatePicker}
         />
       </form>
       <div className="search-results__dates">
-        <div className="date-item date-item__yesterday">
-          <div className="date-number">
-            {new Date().getDate() - 1}/{new Date().getMonth()}
+        {dateOptions.map(({ day, format }) => (
+          <div
+            key={uuidv4()}
+            className={handleClassName(day, format)}
+            onClick={() => handleDateNavigation(format)}
+          >
+            <div className="date-number">{formatDate(format)}</div>
+            <div className="date-title">{day}</div>
           </div>
-          <div className="date-title">Yesterday</div>
-        </div>
-        <div className="date-item date-item__today active-day">
-          <div className="date-number">{currentDate}</div>
-          <div className="date-title">today</div>
-        </div>
-        <div className="date-item date-item__tomorrow">
-          <div className="date-number">
-            {new Date().getDate() + 1}/{new Date().getMonth()}
-          </div>
-          <div className="date-title">tomorrow</div>
-        </div>
+        ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default DatePicker;
+export default DatePicker

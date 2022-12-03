@@ -1,12 +1,11 @@
-import SearchBar from "./components/SearchBar";
-import TimeTable from "./components/TimeTable";
+import AirportBoard from "./components/AirportBoard"
+
 function App() {
   return (
     <div className="App">
-      <SearchBar />
-      <TimeTable />
+      <AirportBoard />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

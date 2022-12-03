@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom"
+
 function NoFlight() {
   return (
-    <div class="nothing-found">
-      <span>NO FLIGHT</span>
-    </div>
-  );
+    <>
+      <h1 className="nothing-found">NO FLIGHTS</h1>
+    </>
+  )
 }
 
-export default NoFlight;
+export default NoFlight

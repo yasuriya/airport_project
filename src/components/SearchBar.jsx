@@ -1,11 +1,12 @@
-import { useState } from "react";
+function SearchBar({ dateQuery, setSearchParams, searchQuery }) {
+  const handleSearch = (e) => {
+    const params = {}
+    if (dateQuery !== "2022-02-23") params.date = dateQuery
+    if (e.target.value.length) params.search = e.target.value
 
-function SearchBar() {
-  const [input, setInput] = useState();
+    setSearchParams(params)
+  }
 
-  const onChange = (e) => {
-    setInput(e.target.value);
-  };
   return (
     <div className="searchbar">
       <div className="searchbar__content">
@@ -13,16 +14,16 @@ function SearchBar() {
         <form className="searchbar__form">
           <i className="fa-solid fa-magnifying-glass"></i>
           <input
+            value={searchQuery}
+            onChange={handleSearch}
             type="text"
             placeholder="Airline, destination or flight #"
-            value={input}
-            onChange={onChange}
           />
           <button type="submit">Search</button>
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default SearchBar;
+export default SearchBar

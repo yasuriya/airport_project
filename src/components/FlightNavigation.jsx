@@ -1,33 +1,31 @@
-import { NavLink } from "react-router-dom";
-
-const helper = (s, a) => {
-  return a
-    ? `nav-link nav-link_${s} `.concat("active")
-    : `nav-link nav-link_${s}`;
-};
-
-//TODO let navClassToggler
+import { NavLink, useLocation } from "react-router-dom"
+import { navLinkClassToggler } from "../helpers/utils"
 
 function FlightNavigation() {
+  const location = useLocation()
+
   return (
     <>
       <div className="search-results__navigation">
         <NavLink
-          to="/departures"
-          className={({ isActive }) => helper("departures", isActive)}
+          to={`departures${location?.search}`}
+          className={({ isActive }) =>
+            navLinkClassToggler("departures", isActive)
+          }
         >
           <i className="fa-solid fa-plane-departure" /> departures
         </NavLink>
         <NavLink
-          end
-          to="/arrivals"
-          className={({ isActive }) => helper("arrivals", isActive)}
+          to={`arrivals${location?.search}`}
+          className={({ isActive }) =>
+            navLinkClassToggler("arrivals", isActive)
+          }
         >
           <i className="fa-solid fa-plane-arrival" /> arrivals
         </NavLink>
       </div>
     </>
-  );
+  )
 }
 
-export default FlightNavigation;
+export default FlightNavigation
