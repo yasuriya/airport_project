@@ -1,35 +1,61 @@
 import moment from "moment"
 
-export const fn = (arr, searchQry, dateQry, city) => {
-  const filteredByDate = arr.filter(
-    (el, index, array) =>
-      index ===
-      array.findIndex(
-        (item) =>
-          item.fltNo === el.fltNo &&
-          (moment(item?.timeArrExpectCalc).format("YYYY-MM-DD") ||
-            moment(item?.timeDepExpectCalc).format("YYYY-MM-DD")) ===
-            dateQry
-      )
-  )
+export const getQueryParams = (query) => ({
+  dateQuery: query.get("date") || "2022-02-23",
+  searchQuery: query.get("search") || "",
+})
 
-  return filteredByDate.filter(
-    (el) =>
-      el[city].toLowerCase().includes(searchQry.toLowerCase()) ||
-      el.fltNo.includes(searchQry) ||
-      el.airline.en.name
-        .toLowerCase()
-        .includes(searchQry.toLowerCase())
-  )
+export const filterFlights = (arr, queryParams) => {
+  const { searchQuery, dateQuery } = queryParams
+
+  return arr
+    ?.filter(
+      (el, index, array) =>
+        index ===
+        array.findIndex(
+          (item) =>
+            item.flightNo === el.flightNo &&
+            moment(item?.localTime).format("YYYY-MM-DD") === dateQuery
+        )
+    )
+    .filter(
+      (el) =>
+        el.destination
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        el.flightNo.includes(searchQuery) ||
+        el.airlineName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+    )
 }
 
 export const formatDate = (date) => date.format("DD/MM")
 export const formatTime = (item) => moment(item).format("HH:mm")
 
-export const navLinkClassToggler = (info, isActive) => {
-  // console.log(info)
+export const getFlightInfo = (data, location) => {
+  let extractedData
+  if (location.pathname === "/departures")
+    extractedData = data?.departure
+  if (location.pathname === "/arrivals") extractedData = data?.arrival
 
-  return isActive
+  return extractedData?.map((el) => ({
+    terminal: el.term,
+    localTime: el.timeArrExpectCalc || el.timeDepExpectCalc,
+    destination:
+      el["airportFromID.city_en"] || el["airportToID.city_en"],
+    status:
+      location.pathname === "/departures"
+        ? `Departed at ${formatTime(el.timeDepFact)}`
+        : `Arrived at ${formatTime(el.timeTakeofFact)}`,
+
+    logo: el.airline.en.logoSmallName,
+    airlineName: el.airline.en.name,
+    flightNo: el.codeShareData[0].codeShare,
+  }))
+}
+
+export const navLinkClassToggler = (info, isActive) =>
+  isActive
     ? `nav-link nav-link_${info} active`
     : `nav-link nav-link_${info}`
-}

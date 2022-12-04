@@ -1,10 +1,14 @@
-import AirportBoard from "./components/AirportBoard"
+import FlightNavigation from "./components/FlightNavigation"
+import SearchBar from "./components/SearchBar"
+import FlightsBoard from "./components/FlightsBoard"
 
 function App() {
   return (
-    <div className="App">
-      <AirportBoard />
-    </div>
+    <main className="App">
+      <SearchBar />
+      <FlightNavigation />
+      <FlightsBoard />
+    </main>
   )
 }
 

@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from "uuid"
 import FlightsList from "./FlightsList"
 import NoFlight from "./NoFlight"
-import { formatTime } from "../helpers/utils"
-
 import {
   Routes,
   Route,
   Navigate,
   useLocation,
 } from "react-router-dom"
+import { useFlightsQuery } from "../store/flightsApi"
+import { MagnifyingGlass } from "react-loader-spinner"
 
 const tableColumns = [
   "Terminal",
@@ -18,25 +18,25 @@ const tableColumns = [
   "Airline",
   "Flight",
 ]
-function FlightsTable({ dateQuery, searchQuery, flightsList }) {
+function FlightsTable({ queryParams }) {
   const location = useLocation()
-  // if (!flightsList?.length) return null
+  const { dateQuery } = queryParams
 
-  const flightInfo = flightsList?.map((el) => ({
-    terminal: el.term,
-    localTime: el.timeArrExpectCalc || el.timeDepFact,
-    destination:
-      el["airportFromID.city_en"] || el["airportToID.city_en"],
-    status:
-      location.pathname === "/departures"
-        ? `Departed at ${formatTime(el.timeDepFact)}`
-        : `Arrived at ${formatTime(el.timeTakeofFact)}`,
-    logo: el.airline.en.logoSmallName,
-    airlineName: el.airline.en.name,
-    flightNo: el.codeShareData[0].codeShare,
-  }))
+  const { isFetching } = useFlightsQuery(dateQuery)
 
-  return (
+  return isFetching ? (
+    <div className="spinner-container">
+      <MagnifyingGlass
+        visible={true}
+        height="100"
+        width="100"
+        ariaLabel="MagnifyingGlass-loading"
+        wrapperClass="MagnifyingGlass-wrapper"
+        glassColor="#c0efff"
+        color="#4CB7EE"
+      />
+    </div>
+  ) : (
     <table cellSpacing="0" cellPadding="0">
       <thead>
         <tr>
@@ -56,13 +56,7 @@ function FlightsTable({ dateQuery, searchQuery, flightsList }) {
           />
           <Route
             path={location.pathname}
-            element={
-              <FlightsList
-                flightInfo={flightInfo}
-                dateQuery={dateQuery}
-                searchQuery={searchQuery}
-              />
-            }
+            element={<FlightsList queryParams={queryParams} />}
           />
 
           <Route path="*" element={<NoFlight />} />

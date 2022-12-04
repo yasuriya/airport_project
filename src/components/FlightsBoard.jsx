@@ -1,36 +1,15 @@
-import NoFlight from "./NoFlight"
 import DatePicker from "./DatePicker"
 import FlightsTable from "./FlightsTable"
+import { getQueryParams } from "../helpers/utils"
+import { useSearchParams } from "react-router-dom"
 
-function FlightsBoard({
-  flightsList,
-  searchQuery,
-  dateQuery,
-  setSearchParams,
-}) {
-  console.log(flightsList?.length)
-
+function FlightsBoard() {
+  const [searchParams] = useSearchParams()
+  const queryParams = getQueryParams(searchParams)
   return (
     <section className="search-results__container">
-      <DatePicker
-        searchQuery={searchQuery}
-        dateQuery={dateQuery}
-        setSearchParams={setSearchParams}
-      />
-      <FlightsTable
-        searchQuery={searchQuery}
-        dateQuery={dateQuery}
-        flightsList={flightsList}
-      />
-      {/* {flightsList?.length ? (
-        <FlightsTable
-          searchQuery={searchQuery}
-          dateQuery={dateQuery}
-          flightsList={flightsList}
-        />
-      ) : (
-        <NoFlight />
-      )} */}
+      <DatePicker queryParams={queryParams} />
+      <FlightsTable queryParams={queryParams} />
     </section>
   )
 }

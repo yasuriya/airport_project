@@ -1,8 +1,17 @@
-function SearchBar({ dateQuery, setSearchParams, searchQuery }) {
+import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { getQueryParams } from "../helpers/utils"
+
+function SearchBar() {
+  const [inputValue, setInputValue] = useState("")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { dateQuery } = getQueryParams(searchParams)
+
   const handleSearch = (e) => {
-    const params = {}
-    if (dateQuery !== "2022-02-23") params.date = dateQuery
-    if (e.target.value.length) params.search = e.target.value
+    e.preventDefault()
+
+    const params = { date: dateQuery }
+    if (inputValue) params.search = inputValue
 
     setSearchParams(params)
   }
@@ -11,11 +20,14 @@ function SearchBar({ dateQuery, setSearchParams, searchQuery }) {
     <div className="searchbar">
       <div className="searchbar__content">
         <h2 className="searchbar__title">SEARCH FLIGHT</h2>
-        <form className="searchbar__form">
+        <form
+          className="searchbar__form"
+          onSubmit={(e) => handleSearch(e)}
+        >
           <i className="fa-solid fa-magnifying-glass"></i>
           <input
-            value={searchQuery}
-            onChange={handleSearch}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             type="text"
             placeholder="Airline, destination or flight #"
           />

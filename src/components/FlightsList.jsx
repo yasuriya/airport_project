@@ -1,24 +1,21 @@
-import { useLocation } from "react-router-dom"
-import { fn } from "../helpers/utils"
-import moment from "moment"
+import { filterFlights, formatTime } from "../helpers/utils"
 import { v4 as uuidv4 } from "uuid"
+import { useLocation } from "react-router-dom"
+import { getFlightInfo } from "../helpers/utils"
+import NoFlight from "./NoFlight"
+import { useFlightsQuery } from "../store/flightsApi"
 
-function FlightsList({ flightInfo, searchQuery, dateQuery }) {
-  // if (!flightInfo?.length) return null
+function FlightsList({ queryParams }) {
+  const location = useLocation()
 
-  // console.log(flightInfo)
+  const { dateQuery } = queryParams
+  const { data = [] } = useFlightsQuery(dateQuery)
 
-  //   const sortedByTime = fn(
-  //     flights,
-  //     searchQuery,
-  //     dateQuery,
-  //     "airportFromID.city_en"
-  //   ).sort(
-  //     (a, b) => new Date(a?.timeArrExpectCalc) - new Date(b?.timeArrExpectCalc)
-  //   );
+  const extractedFlights = getFlightInfo(data?.body, location)
+  const filteredbyQuery = filterFlights(extractedFlights, queryParams)
 
-  return flightInfo?.length ? (
-    flightInfo?.map(
+  return extractedFlights?.length ? (
+    filteredbyQuery?.map(
       ({
         terminal,
         localTime,
@@ -27,34 +24,36 @@ function FlightsList({ flightInfo, searchQuery, dateQuery }) {
         logo,
         status,
         airlineName,
-      }) => (
-        <tr className="tr-flight" key={uuidv4()}>
-          <td>
-            <div
-              className={
-                terminal === "A" ? "terminal-a" : "terminal-d"
-              }
-            >
-              {terminal}
-            </div>
-          </td>
-          <td>{moment(localTime).format("HH:mm")}</td>
-          <td>{destination}</td>
-          <td>{status}</td>
-          <td className="td-logo">
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "64px", height: "38px" }}
-            />
-            <span>{airlineName}</span>
-          </td>
-          <td>{flightNo}</td>
-        </tr>
-      )
+      }) => {
+        return (
+          <tr className="tr-flight" key={uuidv4()}>
+            <td>
+              <div
+                className={
+                  terminal === "A" ? "terminal-a" : "terminal-d"
+                }
+              >
+                {terminal}
+              </div>
+            </td>
+            <td>{formatTime(localTime)}</td>
+            <td>{destination}</td>
+            <td>{status}</td>
+            <td className="td-logo">
+              <img
+                src={logo}
+                alt="logo"
+                style={{ width: "64px", height: "38px" }}
+              />
+              <span>{airlineName}</span>
+            </td>
+            <td>{flightNo}</td>
+          </tr>
+        )
+      }
     )
   ) : (
-    <h1>123123123123</h1>
+    <NoFlight />
   )
 }
 

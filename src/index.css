@@ -26,22 +26,21 @@ body {
 .searchbar__title {
   font-weight: 100;
   line-height: 80px;
-  font-size: 73px;
+  font-size: 60px;
   margin: 20px 0 0 0;
 }
 
 .searchbar__form {
   margin: 24px 0 0 0;
   position: relative;
-  /* width: 200px; */
 }
 
 .searchbar__form > input {
   padding-left: 70px;
-  height: 80px;
+  height: 70px;
   font-size: 24px;
   border: none;
-  width: 100%;
+  width: 90%;
   border-radius: 0 80px 0 0;
 }
 .searchbar__form > button {
@@ -50,7 +49,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  height: 80px;
+  height: 70px;
   background-color: #4cb7ee;
   border-radius: 0 80px 0 0;
   width: 200px;
@@ -74,7 +73,7 @@ body {
   left: 25px;
 }
 
-.search-results {
+.App {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -85,7 +84,7 @@ body {
   text-align: center;
   padding: 0;
   height: 60px;
-  width: 90%;
+  width: 88%;
   list-style: none;
   position: relative;
 }
@@ -133,8 +132,7 @@ body {
 
 .search-results__container {
   background-color: #fff;
-  /* height: 400px; */
-  width: 90%;
+  width: 88%;
 }
 
 .search-results__calendar {
@@ -189,7 +187,7 @@ body {
   letter-spacing: 0.5px;
 }
 .date-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   margin-top: 5px;
 }
@@ -198,18 +196,17 @@ body {
   color: #4cb7ee;
   border-bottom: 3px solid #4cb7ee;
 }
-.nothing-found {
-  text-align: center;
-  line-height: 400px;
+.nothing-found__container {
+  height: 400px;
+  position: relative;
 }
 
-.nothing-found td {
+.nothing-found__container td {
   text-align: center;
   position: absolute;
   top: 40%;
   left: 40%;
-  font-size: 40px;
-  /* font-weight: 600; */
+  font-size: 37px;
 }
 
 table {
@@ -230,19 +227,9 @@ th {
   width: 20px;
 }
 
-tr {
-  line-height: 30px;
-}
-
-tbody tr:hover {
-  -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
-  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
-}
-
 td {
   flex-direction: column;
   padding: 13px 5px;
-  /* min-width: 40px; */
   height: 75px;
   text-align: center;
   font-weight: 400;
@@ -287,6 +274,21 @@ td span {
   flex-direction: row;
 }
 
+tr {
+  line-height: 30px;
+}
+
+.tr-flight:hover {
+  -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
 .tr-flight:nth-child(odd) {
   background-color: #e6eff3;
+}
+.spinner-container {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

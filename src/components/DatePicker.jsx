@@ -3,6 +3,7 @@ import moment from "moment"
 import classNames from "classnames"
 import { formatDate } from "../helpers/utils"
 import { v4 as uuidv4 } from "uuid"
+import { useSearchParams } from "react-router-dom"
 
 const dateOptions = [
   { day: "yesterday", format: moment().subtract(1, "days") },
@@ -10,14 +11,16 @@ const dateOptions = [
   { day: "tomorrow", format: moment().add(1, "days") },
 ]
 
-function DatePicker({ setSearchParams, dateQuery, searchQuery }) {
+function DatePicker({ queryParams }) {
   const [currentDate, setCurrentDate] = useState("23/02")
+  const [, setSearchParams] = useSearchParams()
+  const { dateQuery, searchQuery } = queryParams
 
   const handleDatePicker = (e) => {
     const params = { date: e.target.value }
     if (searchQuery) params.search = searchQuery
-
     setSearchParams(params)
+
     setCurrentDate(formatDate(moment(params.date)))
   }
 
