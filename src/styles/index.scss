@@ -59,6 +59,7 @@ body {
     line-height: 80px;
     font-size: 60px;
     margin: 20px 0 0 0;
+    cursor: default;
     @include for-mobile-up {
       line-height: 40px;
       font-size: 40px;
@@ -373,4 +374,34 @@ tr {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.banner {
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  background-color: #ff4d4f;
+  display: flex;
+  align-items: flex-end;
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
+
+  &__title {
+    display: inline-block;
+    color: #fff;
+    margin: 5px;
+    font-size: 16px;
+    padding-left: 10px;
+    width: 100%;
+    letter-spacing: 1px;
+  }
+
+  &__close-btn {
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+    margin: 5px 15px 3px 3px;
+  }
 }
