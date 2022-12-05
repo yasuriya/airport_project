@@ -1,22 +1,17 @@
-import { v4 as uuidv4 } from "uuid"
-import FlightsList from "./FlightsList"
-import NoFlight from "./NoFlight"
-import Spinner from "./Spinner"
-import {
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"
-import { useFlightsQuery } from "../store/flightsApi"
+import { v4 as uuidv4 } from 'uuid'
+import FlightsList from './FlightsList'
+import NoFlight from './NoFlight'
+import Spinner from './Spinner'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useFlightsQuery } from '../store/flightsApi'
 
 const TABLE_COLUMNS = [
-  "Terminal",
-  "Local Time",
-  "Destination",
-  "Status",
-  "Airline",
-  "Flight",
+  'Terminal',
+  'Local Time',
+  'Destination',
+  'Status',
+  'Airline',
+  'Flight',
 ]
 
 function FlightsTable({ queryParams }) {
@@ -40,13 +35,13 @@ function FlightsTable({ queryParams }) {
         <Routes>
           <Route
             index
-            path="/"
+            path="/airport_project/"
             element={
-              <Navigate to={`/departures?date=${dateQuery}`} />
+              <Navigate to={`/airport_project/departures?date=${dateQuery}`} />
             }
           />
           <Route
-            path={location.pathname}
+            path={`/airport_project/${location.pathname}`}
             element={<FlightsList queryParams={queryParams} />}
           />
 
