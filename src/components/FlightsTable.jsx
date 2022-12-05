@@ -31,7 +31,7 @@ function FlightsTable({ queryParams }) {
     <table cellSpacing="0" cellPadding="0">
       <thead>
         <tr>
-          {TABLE_COLUMNS?.map((el) => (
+          {TABLE_COLUMNS.map((el) => (
             <th key={uuidv4()}>{el}</th>
           ))}
         </tr>

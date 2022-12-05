@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 function Header() {
   return (
     <div className="header__container">
       <Link to="/">
         <img
+          src="https://www.linkpicture.com/q/logo_1.png"
           className="header__image"
-          src="https://iev.aero/_nuxt/img/logo@2x.2d2c20b.png"
-          alt=""
-        />
+          alt="LOGO"
+          type="image"
+        ></img>
       </Link>
     </div>
   )

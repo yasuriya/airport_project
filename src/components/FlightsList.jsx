@@ -32,7 +32,9 @@ function FlightsList({ queryParams }) {
             <td>
               <div
                 className={
-                  terminal === "A" ? "terminal-a" : "terminal-d"
+                  terminal === "A"
+                    ? "terminal terminal__a "
+                    : "terminal terminal__d"
                 }
               >
                 {terminal}

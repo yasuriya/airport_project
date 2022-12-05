@@ -1,0 +1,7 @@
+$md: 768px;
+
+@mixin for-mobile-up {
+  @media screen and (max-width: $md) {
+    @content;
+  }
+}

@@ -30,7 +30,7 @@ function DatePicker({ queryParams }) {
   }
 
   const handleClassName = (day, date) =>
-    classNames("date-item", `date-item_${day}`, {
+    classNames("date__item", `date__item_${day}`, {
       "active-day": currentDate === formatDate(date),
     })
 
@@ -53,8 +53,8 @@ function DatePicker({ queryParams }) {
             className={handleClassName(day, format)}
             onClick={() => handleDateNavigation(format)}
           >
-            <div className="date-number">{formatDate(format)}</div>
-            <div className="date-title">{day}</div>
+            <div className="date__number">{formatDate(format)}</div>
+            <div className="date__tile">{day}</div>
           </div>
         ))}
       </div>
