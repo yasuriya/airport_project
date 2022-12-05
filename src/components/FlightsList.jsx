@@ -14,7 +14,9 @@ function FlightsList({ queryParams }) {
   const extractedFlights = getFlightInfo(data?.body, location)
   const filteredbyQuery = filterFlights(extractedFlights, queryParams)
 
-  return extractedFlights?.length ? (
+  return !extractedFlights?.length ? (
+    <NoFlight />
+  ) : (
     filteredbyQuery?.map(
       ({
         terminal,
@@ -52,8 +54,6 @@ function FlightsList({ queryParams }) {
         )
       }
     )
-  ) : (
-    <NoFlight />
   )
 }
 

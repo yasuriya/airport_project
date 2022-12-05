@@ -1,7 +1,7 @@
 import moment from "moment"
 
 export const getQueryParams = (query) => ({
-  dateQuery: query.get("date") || "2022-02-23",
+  dateQuery: query.get("date") || "2022-02-23", //? default date
   searchQuery: query.get("search") || "",
 })
 

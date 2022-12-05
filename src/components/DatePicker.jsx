@@ -5,7 +5,7 @@ import { formatDate } from "../helpers/utils"
 import { v4 as uuidv4 } from "uuid"
 import { useSearchParams } from "react-router-dom"
 
-const dateOptions = [
+const DATE_OPTIONS = [
   { day: "yesterday", format: moment().subtract(1, "days") },
   { day: "today", format: moment() },
   { day: "tomorrow", format: moment().add(1, "days") },
@@ -47,7 +47,7 @@ function DatePicker({ queryParams }) {
         />
       </form>
       <div className="search-results__dates">
-        {dateOptions.map(({ day, format }) => (
+        {DATE_OPTIONS.map(({ day, format }) => (
           <div
             key={uuidv4()}
             className={handleClassName(day, format)}

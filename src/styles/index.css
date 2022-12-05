@@ -11,6 +11,7 @@ body {
 }
 
 .searchbar {
+  margin-top: 37px;
   padding: 40px 0 20px 0;
   display: flex;
   justify-content: center;
@@ -274,6 +275,10 @@ td span {
   flex-direction: row;
 }
 
+.td-logo span {
+  padding-left: 10px;
+}
+
 tr {
   line-height: 30px;
 }
@@ -287,8 +292,26 @@ tr {
   background-color: #e6eff3;
 }
 .spinner-container {
-  height: 400px;
+  height: 470px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.header__container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background: #1eb7ee;
+  color: #fff;
+  height: 70px;
+  -webkit-box-shadow: 0 5px 10px rgb(37 40 41 / 30%);
+  box-shadow: 0 5px 10px rgb(37 40 41 / 30%);
+}
+
+.header__image {
+  max-width: 125px;
+  margin-top: 10px;
+  margin-left: 77px;
 }

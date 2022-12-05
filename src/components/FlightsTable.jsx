@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import FlightsList from "./FlightsList"
 import NoFlight from "./NoFlight"
+import Spinner from "./Spinner"
 import {
   Routes,
   Route,
@@ -8,9 +9,8 @@ import {
   useLocation,
 } from "react-router-dom"
 import { useFlightsQuery } from "../store/flightsApi"
-import { MagnifyingGlass } from "react-loader-spinner"
 
-const tableColumns = [
+const TABLE_COLUMNS = [
   "Terminal",
   "Local Time",
   "Destination",
@@ -18,6 +18,7 @@ const tableColumns = [
   "Airline",
   "Flight",
 ]
+
 function FlightsTable({ queryParams }) {
   const location = useLocation()
   const { dateQuery } = queryParams
@@ -25,22 +26,12 @@ function FlightsTable({ queryParams }) {
   const { isFetching } = useFlightsQuery(dateQuery)
 
   return isFetching ? (
-    <div className="spinner-container">
-      <MagnifyingGlass
-        visible={true}
-        height="100"
-        width="100"
-        ariaLabel="MagnifyingGlass-loading"
-        wrapperClass="MagnifyingGlass-wrapper"
-        glassColor="#c0efff"
-        color="#4CB7EE"
-      />
-    </div>
+    <Spinner />
   ) : (
     <table cellSpacing="0" cellPadding="0">
       <thead>
         <tr>
-          {tableColumns?.map((el) => (
+          {TABLE_COLUMNS?.map((el) => (
             <th key={uuidv4()}>{el}</th>
           ))}
         </tr>
