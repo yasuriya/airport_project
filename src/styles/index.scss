@@ -59,7 +59,6 @@ body {
     line-height: 80px;
     font-size: 60px;
     margin: 20px 0 0 0;
-    cursor: default;
     @include for-mobile-up {
       line-height: 40px;
       font-size: 40px;
@@ -375,6 +374,7 @@ tr {
   justify-content: center;
   align-items: center;
 }
+<<<<<<< HEAD
 
 .banner {
   height: 100px;
@@ -405,3 +405,5 @@ tr {
     margin: 5px 15px 3px 3px;
   }
 }
+=======
+>>>>>>> parent of bac6e62 (baner added)

@@ -1,8 +1,13 @@
 import moment from 'moment'
 
 export const getQueryParams = (query) => ({
+<<<<<<< HEAD
   dateQuery: query.get('date') || '2022-02-23', //* default date
   searchQuery: query.get('search') || '',
+=======
+  dateQuery: query.get("date") || "2022-02-23", //? default date
+  searchQuery: query.get("search") || "",
+>>>>>>> parent of bac6e62 (baner added)
 })
 
 export const filterFlights = (arr, queryParams) => {
