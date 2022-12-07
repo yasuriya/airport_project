@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom"
 import { getFlightInfo } from "../helpers/utils"
 import NoFlight from "./NoFlight"
 import { useFlightsQuery } from "../store/flightsApi"
+import PropTypes from "prop-types"
 
 function FlightsList({ queryParams }) {
   const location = useLocation()
@@ -60,3 +61,7 @@ function FlightsList({ queryParams }) {
 }
 
 export default FlightsList
+
+FlightsList.propTypes = {
+  queryParams: PropTypes.object.isRequired,
+}

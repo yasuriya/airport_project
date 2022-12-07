@@ -9,6 +9,7 @@ import {
   useLocation,
 } from "react-router-dom"
 import { useFlightsQuery } from "../store/flightsApi"
+import PropTypes from "prop-types"
 
 const TABLE_COLUMNS = [
   "Terminal",
@@ -31,8 +32,8 @@ function FlightsTable({ queryParams }) {
     <table cellSpacing="0" cellPadding="0">
       <thead>
         <tr>
-          {TABLE_COLUMNS.map((el) => (
-            <th key={uuidv4()}>{el}</th>
+          {TABLE_COLUMNS.map((column) => (
+            <th key={uuidv4()}>{column}</th>
           ))}
         </tr>
       </thead>
@@ -58,3 +59,7 @@ function FlightsTable({ queryParams }) {
 }
 
 export default FlightsTable
+
+FlightsTable.propTypes = {
+  queryParams: PropTypes.object.isRequired,
+}

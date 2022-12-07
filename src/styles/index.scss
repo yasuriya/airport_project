@@ -135,8 +135,9 @@ body {
 
   &__calendar {
     height: 45px;
-    width: 45px;
+    width: 47px;
     border: none;
+    z-index: 999;
   }
 
   &__datepicker {
@@ -264,14 +265,11 @@ body {
   left: 25px;
 }
 
-.fa-solid {
-  z-index: 0;
-}
-
 ::-webkit-calendar-picker-indicator {
   padding: 15px;
   cursor: pointer;
   opacity: 0;
+  z-index: 1000;
 }
 
 .fa-calendar-days {
@@ -280,6 +278,8 @@ body {
   position: relative;
   top: 9px;
   left: 45px;
+  z-index: inherit;
+  cursor: pointer;
 }
 
 .active {
@@ -361,14 +361,16 @@ tr {
   }
 }
 
-.tr-flight:hover {
-  -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
-  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
-}
-
 .tr-flight:nth-child(odd) {
   background-color: #e6eff3;
 }
+
+.tr-flight:hover {
+  -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  position: relative;
+}
+
 .spinner-container {
   height: 470px;
   display: flex;

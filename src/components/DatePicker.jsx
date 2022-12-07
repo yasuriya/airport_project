@@ -4,6 +4,7 @@ import classNames from "classnames"
 import { formatDate } from "../helpers/utils"
 import { v4 as uuidv4 } from "uuid"
 import { useSearchParams } from "react-router-dom"
+import PropTypes from "prop-types"
 
 const DATE_OPTIONS = [
   { day: "yesterday", format: moment().subtract(1, "days") },
@@ -63,3 +64,7 @@ function DatePicker({ queryParams }) {
 }
 
 export default DatePicker
+
+DatePicker.propTypes = {
+  queryParams: PropTypes.object.isRequired,
+}
