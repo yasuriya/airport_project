@@ -1,10 +1,10 @@
-import { filterFlights, formatTime } from '../helpers/utils'
-import { v4 as uuidv4 } from 'uuid'
 import { useLocation } from 'react-router-dom'
-import { getFlightInfo } from '../helpers/utils'
-import NoFlight from './NoFlight'
 import { useFlightsQuery } from '../store/flightsApi'
+import { v4 as uuidv4 } from 'uuid'
+import { getFlightInfo } from '../helpers/utils'
+import { filterFlights, formatTime } from '../helpers/utils'
 import PropTypes from 'prop-types'
+import NoFlight from './NoFlight'
 
 function FlightsList({ queryParams }) {
   const location = useLocation()
@@ -36,7 +36,8 @@ function FlightsList({ queryParams }) {
                   terminal === 'A'
                     ? 'terminal terminal__a '
                     : 'terminal terminal__d'
-                }>
+                }
+              >
                 {terminal}
               </div>
             </td>
@@ -54,7 +55,7 @@ function FlightsList({ queryParams }) {
             <td>{flightNo}</td>
           </tr>
         )
-      },
+      }
     )
   )
 }

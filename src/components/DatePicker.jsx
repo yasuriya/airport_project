@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import moment from 'moment'
-import classNames from 'classnames'
-import { formatDate } from '../helpers/utils'
-import { v4 as uuidv4 } from 'uuid'
 import { useSearchParams } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
+import { formatDate } from '../helpers/utils'
+import classNames from 'classnames'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 
 const DATE_OPTIONS = [
@@ -30,11 +30,6 @@ function DatePicker({ queryParams }) {
     setCurrentDate(formatDate(moment(date)))
   }
 
-  const handleClassName = (day, date) =>
-    classNames('date__item', `date__item_${day}`, {
-      'active-day': currentDate === formatDate(date),
-    })
-
   return (
     <div className="search-results__datepicker">
       <form>
@@ -51,8 +46,11 @@ function DatePicker({ queryParams }) {
         {DATE_OPTIONS.map(({ day, format }) => (
           <div
             key={uuidv4()}
-            className={handleClassName(day, format)}
-            onClick={() => handleDateNavigation(format)}>
+            className={classNames('date__item', `date__item_${day}`, {
+              'active-day': currentDate === formatDate(format),
+            })}
+            onClick={() => handleDateNavigation(format)}
+          >
             <div className="date__number">{formatDate(format)}</div>
             <div className="date__tile">{day}</div>
           </div>

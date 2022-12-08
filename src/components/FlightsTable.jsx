@@ -1,9 +1,9 @@
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import { useFlightsQuery } from '../store/flightsApi'
 import FlightsList from './FlightsList'
 import NoFlight from './NoFlight'
 import Spinner from './Spinner'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useFlightsQuery } from '../store/flightsApi'
 import PropTypes from 'prop-types'
 
 const TABLE_COLUMNS = [

@@ -8,7 +8,8 @@ function Header() {
           src="https://www.linkpicture.com/q/logo_1.png"
           className="header__image"
           alt="LOGO"
-          type="image"></img>
+          type="image"
+        />
       </Link>
     </div>
   )
