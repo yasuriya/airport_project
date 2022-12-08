@@ -1,19 +1,19 @@
-import { useState } from "react"
-import moment from "moment"
-import classNames from "classnames"
-import { formatDate } from "../helpers/utils"
-import { v4 as uuidv4 } from "uuid"
-import { useSearchParams } from "react-router-dom"
-import PropTypes from "prop-types"
+import { useState } from 'react'
+import moment from 'moment'
+import classNames from 'classnames'
+import { formatDate } from '../helpers/utils'
+import { v4 as uuidv4 } from 'uuid'
+import { useSearchParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const DATE_OPTIONS = [
-  { day: "yesterday", format: moment().subtract(1, "days") },
-  { day: "today", format: moment() },
-  { day: "tomorrow", format: moment().add(1, "days") },
+  { day: 'yesterday', format: moment().subtract(1, 'days') },
+  { day: 'today', format: moment() },
+  { day: 'tomorrow', format: moment().add(1, 'days') },
 ]
 
 function DatePicker({ queryParams }) {
-  const [currentDate, setCurrentDate] = useState("23/02")
+  const [currentDate, setCurrentDate] = useState('23/02')
   const [, setSearchParams] = useSearchParams()
   const { dateQuery, searchQuery } = queryParams
 
@@ -26,13 +26,13 @@ function DatePicker({ queryParams }) {
   }
 
   const handleDateNavigation = (date) => {
-    setSearchParams({ date: moment(date).format("YYYY-MM-DD") })
+    setSearchParams({ date: moment(date).format('YYYY-MM-DD') })
     setCurrentDate(formatDate(moment(date)))
   }
 
   const handleClassName = (day, date) =>
-    classNames("date__item", `date__item_${day}`, {
-      "active-day": currentDate === formatDate(date),
+    classNames('date__item', `date__item_${day}`, {
+      'active-day': currentDate === formatDate(date),
     })
 
   return (
@@ -52,8 +52,7 @@ function DatePicker({ queryParams }) {
           <div
             key={uuidv4()}
             className={handleClassName(day, format)}
-            onClick={() => handleDateNavigation(format)}
-          >
+            onClick={() => handleDateNavigation(format)}>
             <div className="date__number">{formatDate(format)}</div>
             <div className="date__tile">{day}</div>
           </div>

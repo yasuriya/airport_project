@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 function Header() {
   return (
@@ -8,8 +8,7 @@ function Header() {
           src="https://www.linkpicture.com/q/logo_1.png"
           className="header__image"
           alt="LOGO"
-          type="image"
-        ></img>
+          type="image"></img>
       </Link>
     </div>
   )

@@ -1,10 +1,10 @@
-import { filterFlights, formatTime } from "../helpers/utils"
-import { v4 as uuidv4 } from "uuid"
-import { useLocation } from "react-router-dom"
-import { getFlightInfo } from "../helpers/utils"
-import NoFlight from "./NoFlight"
-import { useFlightsQuery } from "../store/flightsApi"
-import PropTypes from "prop-types"
+import { filterFlights, formatTime } from '../helpers/utils'
+import { v4 as uuidv4 } from 'uuid'
+import { useLocation } from 'react-router-dom'
+import { getFlightInfo } from '../helpers/utils'
+import NoFlight from './NoFlight'
+import { useFlightsQuery } from '../store/flightsApi'
+import PropTypes from 'prop-types'
 
 function FlightsList({ queryParams }) {
   const location = useLocation()
@@ -33,11 +33,10 @@ function FlightsList({ queryParams }) {
             <td>
               <div
                 className={
-                  terminal === "A"
-                    ? "terminal terminal__a "
-                    : "terminal terminal__d"
-                }
-              >
+                  terminal === 'A'
+                    ? 'terminal terminal__a '
+                    : 'terminal terminal__d'
+                }>
                 {terminal}
               </div>
             </td>
@@ -48,14 +47,14 @@ function FlightsList({ queryParams }) {
               <img
                 src={logo}
                 alt="logo"
-                style={{ width: "64px", height: "38px" }}
+                style={{ width: '64px', height: '38px' }}
               />
               <span>{airlineName}</span>
             </td>
             <td>{flightNo}</td>
           </tr>
         )
-      }
+      },
     )
   )
 }

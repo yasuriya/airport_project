@@ -1,7 +1,7 @@
-import DatePicker from "./DatePicker"
-import FlightsTable from "./FlightsTable"
-import { getQueryParams } from "../helpers/utils"
-import { useSearchParams } from "react-router-dom"
+import DatePicker from './DatePicker'
+import FlightsTable from './FlightsTable'
+import { getQueryParams } from '../helpers/utils'
+import { useSearchParams } from 'react-router-dom'
 
 function FlightsBoard() {
   const [searchParams] = useSearchParams()
