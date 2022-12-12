@@ -1,7 +1,0 @@
-$md: 768px;
-
-@mixin for-mobile-up {
-  @media (width < $md) {
-    @content;
-  }
-}
