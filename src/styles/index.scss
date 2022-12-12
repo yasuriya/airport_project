@@ -1,0 +1,409 @@
+@import "./breakpoints.scss";
+
+* {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+body {
+  background-color: #e7efec;
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+  &__container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #1eb7ee;
+    color: #fff;
+    height: 70px;
+    -webkit-box-shadow: 0 5px 10px rgb(37 40 41 / 30%);
+    box-shadow: 0 5px 10px rgb(37 40 41 / 30%);
+  }
+
+  &__image {
+    max-width: 125px;
+    margin-top: 10px;
+    margin-left: 77px;
+  }
+}
+
+.searchbar {
+  margin-top: 37px;
+  padding: 40px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+
+  &__content {
+    margin: 0 34px;
+    padding: 0 10px;
+    width: 60%;
+    @include for-mobile-up {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-weight: 100;
+    line-height: 80px;
+    font-size: 60px;
+    margin: 20px 0 0 0;
+    cursor: default;
+    @include for-mobile-up {
+      line-height: 40px;
+      font-size: 40px;
+    }
+  }
+
+  &__form > input {
+    padding-left: 70px;
+    height: 70px;
+    font-size: 24px;
+    border: none;
+    width: 90%;
+    border-radius: 0 80px 0 0;
+    @include for-mobile-up {
+      font-size: 14px;
+    }
+  }
+
+  &__form > button {
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 70px;
+    background-color: #4cb7ee;
+    border-radius: 0 80px 0 0;
+    width: 200px;
+    color: #fff;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 0 20px;
+    font-weight: 700;
+    transition: 0.3s ease-in-out;
+    font-size: 26px;
+    @include for-mobile-up {
+      font-size: 20px;
+      width: 150px;
+    }
+  }
+
+  &__form > button:hover {
+    border-radius: 0 40px 0 0;
+  }
+
+  &__form {
+    margin: 24px 0 0 0;
+    position: relative;
+  }
+}
+
+.search-results {
+  &__navigation {
+    margin: 20px 0 0 0;
+    text-align: center;
+    padding: 0;
+    height: 60px;
+    width: 88%;
+    list-style: none;
+    position: relative;
+    @include for-mobile-up {
+      width: 100%;
+    }
+  }
+
+  &__container {
+    background-color: #fff;
+    width: 88%;
+    @include for-mobile-up {
+      width: 100%;
+    }
+  }
+
+  &__calendar {
+    height: 45px;
+    width: 47px;
+    border: none;
+    z-index: 999;
+  }
+
+  &__datepicker {
+    margin: 15px 0 0 -10px;
+    display: flex;
+  }
+
+  &__dates {
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    margin-left: 20px;
+    color: #b8b9b9;
+
+    @include for-mobile-up {
+      width: 25%;
+      padding-left: 15px;
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+    text-align: end;
+    padding-right: 5px;
+    font-weight: 600;
+    color: #4cb7ee;
+    letter-spacing: 0.5px;
+  }
+}
+
+.date {
+  &__item {
+    width: 120px;
+    text-align: center;
+    border-bottom: 3px solid #b8b9b9;
+    cursor: pointer;
+    @include for-mobile-up {
+      padding-left: 7px;
+    }
+  }
+
+  &__number {
+    padding-bottom: 10px;
+    font-size: 12px;
+  }
+
+  &__tile {
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: inherit;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 24px;
+  border-radius: 60px 60px 0 0;
+  height: 100%;
+  line-height: 60px;
+  width: 57%;
+  background-color: #81d3f4;
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  &:hover {
+    background-color: #4cb7ee;
+  }
+  &_departures {
+    left: 0;
+    z-index: 1;
+  }
+  &_arrivals {
+    right: 0;
+  }
+  @include for-mobile-up {
+    font-size: 18px;
+  }
+}
+
+.nothing-found {
+  &__container {
+    height: 400px;
+    position: relative;
+  }
+  &__container td {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    font-size: 37px;
+  }
+}
+
+.terminal {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+
+  &__a {
+    color: #63c745;
+    border: 1px solid #63c745;
+    line-height: 33px;
+  }
+
+  &__d {
+    color: #1eb7ee;
+    border: 1px solid #1eb7ee;
+    line-height: 37px;
+  }
+}
+
+.fa-magnifying-glass {
+  font-size: 26px;
+  color: grey;
+  position: absolute;
+  top: 35%;
+  left: 25px;
+}
+
+::-webkit-calendar-picker-indicator {
+  padding: 15px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1000;
+}
+
+.fa-calendar-days {
+  font-size: 40px;
+  color: #4cb7ee;
+  position: relative;
+  top: 9px;
+  left: 45px;
+  z-index: inherit;
+  cursor: pointer;
+}
+
+.active {
+  z-index: 2;
+  background-color: #fff;
+  color: #4cb7ee;
+
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+.active-day {
+  color: #4cb7ee;
+  border-bottom: 3px solid #4cb7ee;
+}
+
+table {
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+}
+
+thead {
+  height: 50px;
+  color: #95989a;
+  font-size: 16px;
+  @include for-mobile-up {
+    display: none;
+  }
+}
+th {
+  padding: 12px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  width: 20px;
+}
+
+td {
+  flex-direction: column;
+  padding: 13px 5px;
+  height: 75px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  color: #212529;
+  @include for-mobile-up {
+    padding: 0;
+  }
+}
+
+td span {
+  display: inline-block;
+}
+
+.td-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.td-logo span {
+  padding-left: 10px;
+}
+
+tr {
+  line-height: 30px;
+  @include for-mobile-up {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    line-height: 80px;
+  }
+}
+
+.tr-flight td {
+  @include for-mobile-up {
+    width: 50%;
+  }
+}
+
+.tr-flight:nth-child(odd) {
+  background-color: #e6eff3;
+}
+
+.tr-flight:hover {
+  -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  position: relative;
+}
+
+.spinner-container {
+  height: 470px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner {
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  background-color: #ff4d4f;
+  display: flex;
+  align-items: flex-end;
+
+  @media (width < 1200px) {
+    display: none;
+  }
+
+  &__title {
+    display: inline-block;
+    color: #fff;
+    margin: 5px;
+    font-size: 16px;
+    padding-left: 10px;
+    width: 100%;
+    letter-spacing: 1px;
+  }
+
+  &__close-btn {
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+    margin: 5px 15px 3px 3px;
+  }
+}
