@@ -30,6 +30,7 @@ export const filterFlights = (arr, queryParams) => {
 
 export const formatDate = (date) => date.format('DD/MM')
 export const formatTime = (item) => moment(item).format('HH:mm')
+export const formatYear = (date) => moment(date).format('YYYY-MM-DD')
 
 export const getFlightInfo = (data, location) => {
   let extractedData

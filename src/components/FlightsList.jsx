@@ -9,10 +9,10 @@ import NoFlight from './NoFlight'
 function FlightsList({ queryParams }) {
   const location = useLocation()
 
-  const { dateQuery } = queryParams
-  const { data = [] } = useFlightsQuery(dateQuery)
+  const { data = [] } = useFlightsQuery(queryParams.dateQuery)
 
   const extractedFlights = getFlightInfo(data?.body, location)
+
   const filteredbyQuery = filterFlights(extractedFlights, queryParams)
 
   return !extractedFlights?.length ? (
@@ -36,8 +36,7 @@ function FlightsList({ queryParams }) {
                   terminal === 'A'
                     ? 'terminal terminal__a '
                     : 'terminal terminal__d'
-                }
-              >
+                }>
                 {terminal}
               </div>
             </td>
@@ -55,7 +54,7 @@ function FlightsList({ queryParams }) {
             <td>{flightNo}</td>
           </tr>
         )
-      }
+      },
     )
   )
 }

@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
 import { useFlightsQuery } from '../store/flightsApi'
 import FlightsList from './FlightsList'
 import NoFlight from './NoFlight'
 import Spinner from './Spinner'
-import PropTypes from 'prop-types'
+import { useSearchParams } from 'react-router-dom'
+import { getQueryParams } from '../helpers/utils'
 
 const TABLE_COLUMNS = [
   'Terminal',
@@ -15,8 +15,11 @@ const TABLE_COLUMNS = [
   'Flight',
 ]
 
-function FlightsTable({ queryParams }) {
+function FlightsTable() {
   const location = useLocation()
+
+  const [searchParams] = useSearchParams()
+  const queryParams = getQueryParams(searchParams)
   const { dateQuery } = queryParams
 
   const { isFetching } = useFlightsQuery(dateQuery)
@@ -28,7 +31,7 @@ function FlightsTable({ queryParams }) {
       <thead>
         <tr>
           {TABLE_COLUMNS.map((column) => (
-            <th key={uuidv4()}>{column}</th>
+            <th key={column}>{column}</th>
           ))}
         </tr>
       </thead>
@@ -52,7 +55,3 @@ function FlightsTable({ queryParams }) {
 }
 
 export default FlightsTable
-
-FlightsTable.propTypes = {
-  queryParams: PropTypes.object.isRequired,
-}

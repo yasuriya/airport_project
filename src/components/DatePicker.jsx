@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
-import { formatDate } from '../helpers/utils'
+import { formatDate, formatYear } from '../helpers/utils'
 import classNames from 'classnames'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 
 const DATE_OPTIONS = [
   { day: 'yesterday', format: moment().subtract(1, 'days') },
@@ -12,22 +11,21 @@ const DATE_OPTIONS = [
   { day: 'tomorrow', format: moment().add(1, 'days') },
 ]
 
-function DatePicker({ queryParams }) {
+function DatePicker() {
   const [currentDate, setCurrentDate] = useState('23/02')
-  const [, setSearchParams] = useSearchParams()
-  const { dateQuery, searchQuery } = queryParams
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleDatePicker = (e) => {
-    const params = { date: e.target.value }
-    if (searchQuery) params.search = searchQuery
-    setSearchParams(params)
+    searchParams.set('date', e.target.value)
 
-    setCurrentDate(formatDate(moment(params.date)))
+    setSearchParams(searchParams)
+
+    setCurrentDate(formatDate(moment(searchParams.get('date'))))
   }
 
   const handleDateNavigation = (date) => {
-    setSearchParams({ date: moment(date).format('YYYY-MM-DD') })
-    setCurrentDate(formatDate(moment(date)))
+    setSearchParams({ date: formatYear(date) })
+    setCurrentDate(formatDate(date))
   }
 
   return (
@@ -38,7 +36,7 @@ function DatePicker({ queryParams }) {
         <input
           type="date"
           className="search-results__calendar"
-          value={dateQuery}
+          value={searchParams.get('date') || ''}
           onChange={handleDatePicker}
         />
       </form>
@@ -49,8 +47,7 @@ function DatePicker({ queryParams }) {
             className={classNames('date__item', `date__item_${day}`, {
               'active-day': currentDate === formatDate(format),
             })}
-            onClick={() => handleDateNavigation(format)}
-          >
+            onClick={() => handleDateNavigation(format)}>
             <div className="date__number">{formatDate(format)}</div>
             <div className="date__tile">{day}</div>
           </div>
@@ -61,7 +58,3 @@ function DatePicker({ queryParams }) {
 }
 
 export default DatePicker
-
-DatePicker.propTypes = {
-  queryParams: PropTypes.object.isRequired,
-}
