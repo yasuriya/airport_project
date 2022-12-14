@@ -17,10 +17,8 @@ function DatePicker() {
 
   const handleDatePicker = (e) => {
     searchParams.set('date', e.target.value)
-
     setSearchParams(searchParams)
-
-    setCurrentDate(formatDate(moment(searchParams.get('date'))))
+    setCurrentDate(formatDate(searchParams.get('date')))
   }
 
   const handleDateNavigation = (date) => {
