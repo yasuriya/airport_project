@@ -1,21 +1,18 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { getQueryParams } from '../helpers/utils'
-import { SearchParams } from '../types'
 
-const SearchBar = (): JSX.Element => {
+const SearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const [searchParams, setSearchParams]: [URLSearchParams, Function] =
     useSearchParams()
-  const { dateQuery }: { dateQuery: string } = getQueryParams(searchParams)
 
   const handleSearch: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
-    const params: SearchParams = { date: dateQuery }
-    if (inputValue) params.search = inputValue
+    searchParams.set('search', inputValue)
+    if (!inputValue) searchParams.delete('search')
 
-    setSearchParams(params)
+    setSearchParams(searchParams)
   }
 
   return (

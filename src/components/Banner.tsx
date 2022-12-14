@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Banner = (): JSX.Element => {
+const Banner: React.FC = () => {
   const [bannerStatus, setBannerStatus] = useState<boolean>(true)
 
   return (

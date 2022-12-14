@@ -5,6 +5,8 @@ import FlightsList from './FlightsList'
 import NoFlight from './NoFlight'
 import Spinner from './Spinner'
 import { QueryParams, LocationParams } from '../types'
+import { useSearchParams } from 'react-router-dom'
+import { getQueryParams } from '../helpers/utils'
 
 const TABLE_COLUMNS: string[] = [
   'Terminal',
@@ -15,10 +17,12 @@ const TABLE_COLUMNS: string[] = [
   'Flight',
 ]
 
-const FlightsTable = (props: QueryParams): JSX.Element => {
+const FlightsTable: React.FC = () => {
   const location: LocationParams = useLocation()
-  const { dateQuery } = props
+  const [searchParams]: [URLSearchParams, Function] = useSearchParams()
+  const queryParams: QueryParams = getQueryParams(searchParams)
 
+  const { dateQuery } = queryParams
   const { isFetching }: { isFetching: boolean } = useFlightsQuery(dateQuery)
 
   return isFetching ? (
@@ -41,9 +45,8 @@ const FlightsTable = (props: QueryParams): JSX.Element => {
           />
           <Route
             path={location.pathname}
-            element={<FlightsList {...props} />}
+            element={<FlightsList {...queryParams} />}
           />
-
           <Route path="*" element={<NoFlight />} />
         </Routes>
       </tbody>

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
-import { formatDate } from '../helpers/utils'
+import { formatDate, formatYear } from '../helpers/utils'
 import classNames from 'classnames'
 import moment, { Moment } from 'moment'
-import { QueryParams, SearchParams } from '../types'
 
 type DateOptions = {
   day: string
@@ -17,21 +16,20 @@ const DATE_OPTIONS: DateOptions[] = [
   { day: 'tomorrow', format: moment().add(1, 'days') },
 ]
 
-const DatePicker = ({ dateQuery, searchQuery }: QueryParams): JSX.Element => {
+const DatePicker: React.FC = () => {
   const [currentDate, setCurrentDate] = useState<string>('23/02')
-  const [, setSearchParams]: [URLSearchParams, Function] = useSearchParams()
+  const [searchParams, setSearchParams]: [URLSearchParams, Function] =
+    useSearchParams()
 
   const handleDatePicker: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const params: SearchParams = { date: e.target.value }
-    if (searchQuery) params.search = searchQuery
-    setSearchParams(params)
-
-    setCurrentDate(formatDate(moment(params.date)))
+    searchParams.set('date', e.target.value)
+    setSearchParams(searchParams)
+    setCurrentDate(formatDate(searchParams.get('date')))
   }
 
   const handleDateNavigation = (date: Moment): void => {
-    setSearchParams({ date: moment(date).format('YYYY-MM-DD') })
-    setCurrentDate(formatDate(moment(date)))
+    setSearchParams({ date: formatYear(date) })
+    setCurrentDate(formatDate(date))
   }
 
   return (
@@ -42,7 +40,7 @@ const DatePicker = ({ dateQuery, searchQuery }: QueryParams): JSX.Element => {
         <input
           type="date"
           className="search-results__calendar"
-          value={dateQuery}
+          value={searchParams.get('date') || ''}
           onChange={handleDatePicker}
         />
       </form>

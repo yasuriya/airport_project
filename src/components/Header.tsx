@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Banner from './Banner'
 
-const Header = (): JSX.Element => {
+const Header: React.FC = () => {
   return (
     <>
       <div className="header__container">

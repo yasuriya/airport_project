@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { navLinkClassToggler } from '../helpers/utils'
 import { LocationParams } from '../types/index'
 
-const FlightNavigation = (): JSX.Element => {
+const FlightNavigation: React.FC = () => {
   const location: LocationParams = useLocation()
 
   return (

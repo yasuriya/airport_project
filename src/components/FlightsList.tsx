@@ -17,14 +17,13 @@ type DataStore = {
   }
 }
 
-const FlightsList = (props: QueryParams): JSX.Element => {
+type Extracted = ExtractedFlights[] | undefined
+
+const FlightsList: React.FC<QueryParams> = (props) => {
   const location: LocationParams = useLocation()
   const { data } = useFlightsQuery<{ data: DataStore }>(props.dateQuery)
 
-  const extractedFlights: ExtractedFlights[] | undefined = getFlightInfo(
-    data?.body,
-    location
-  )
+  const extractedFlights: Extracted = getFlightInfo(data?.body, location)
 
   return !extractedFlights?.length ? (
     <NoFlight />

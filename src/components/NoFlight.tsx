@@ -1,4 +1,4 @@
-const NoFlight = (): JSX.Element => {
+const NoFlight: React.FC = () => {
   return (
     <tr className="nothing-found__container ">
       <td>NO FLIGHT</td>

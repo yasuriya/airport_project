@@ -41,9 +41,12 @@ export const filterFlights = (
     )
 }
 
-export const formatDate = (date: Moment): string => date.format('DD/MM')
+export const formatDate = (date: string | Moment | null): string =>
+  moment(date).format('DD/MM')
 export const formatTime = (item: string | Date): string =>
   moment(item).format('HH:mm')
+export const formatYear = (date: string | Moment) =>
+  moment(date).format('YYYY-MM-DD')
 
 export const getFlightInfo = (
   data: BodyType,
