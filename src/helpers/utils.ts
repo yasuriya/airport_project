@@ -14,18 +14,14 @@ export const getQueryParams = (query: URLSearchParams): QueryParams => ({
 })
 
 export const filterFlights = (
-  arr: ExtractedFlights[],
+  arr: ExtractedFlights[] | undefined,
   queryParams: QueryParams
-): ExtractedFlights[] => {
+) => {
   const { searchQuery, dateQuery } = queryParams
 
   return arr
     ?.filter(
-      (
-        el: ExtractedFlights,
-        index: number,
-        array: ExtractedFlights[]
-      ): boolean =>
+      (el: ExtractedFlights, index, array: ExtractedFlights[]): boolean =>
         index ===
         array.findIndex(
           (item) =>
@@ -48,29 +44,24 @@ export const formatTime = (item: string | Date): string =>
 export const formatYear = (date: string | Moment) =>
   moment(date).format('YYYY-MM-DD')
 
-export const getFlightInfo = (
-  data: BodyType,
-  location: LocationParams
-): ExtractedFlights[] | undefined => {
+export const getFlightInfo = (data: BodyType, location: LocationParams) => {
   let extractedData
   if (location.pathname === '/departures') extractedData = data?.departure
   if (location.pathname === '/arrivals') extractedData = data?.arrival
 
-  return extractedData?.map(
-    (el): ExtractedFlights => ({
-      terminal: el.term,
-      localTime: el.timeArrExpectCalc || el.timeDepExpectCalc,
-      destination: el['airportFromID.city_en'] || el['airportToID.city_en'],
-      status:
-        location.pathname === '/departures'
-          ? `Departed at ${formatTime(el.timeDepFact)}`
-          : `Arrived at ${formatTime(el.timeTakeofFact)}`,
+  return extractedData?.map((el) => ({
+    terminal: el.term,
+    localTime: el.timeArrExpectCalc || el.timeDepExpectCalc,
+    destination: el['airportFromID.city_en'] || el['airportToID.city_en'],
+    status:
+      location.pathname === '/departures'
+        ? `Departed at ${formatTime(el.timeDepFact)}`
+        : `Arrived at ${formatTime(el.timeTakeofFact)}`,
 
-      logo: el.airline.en.logoSmallName,
-      airlineName: el.airline.en.name,
-      flightNo: el.codeShareData[0].codeShare,
-    })
-  )
+    logo: el.airline.en.logoSmallName,
+    airlineName: el.airline.en.name,
+    flightNo: el.codeShareData[0].codeShare,
+  }))
 }
 
 export const navLinkClassToggler = (info: string, isActive: boolean): string =>

@@ -23,7 +23,7 @@ const FlightsTable: React.FC = () => {
   const queryParams: QueryParams = getQueryParams(searchParams)
 
   const { dateQuery } = queryParams
-  const { isFetching }: { isFetching: boolean } = useFlightsQuery(dateQuery)
+  const { isFetching } = useFlightsQuery(dateQuery)
 
   return isFetching ? (
     <Spinner />

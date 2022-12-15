@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom'
 import { useFlightsQuery } from '../store/flightsApi'
 import { getFlightInfo } from '../helpers/utils'
-import NoFlight from './NoFlight'
+import { v4 as uuidv4 } from 'uuid'
+
 import {
   LocationParams,
   QueryParams,
@@ -9,6 +10,8 @@ import {
   ExtractedFlights,
 } from '../types'
 import Flight from './Flight'
+import { filterFlights } from '../helpers/utils'
+import NoFlight from './NoFlight'
 
 type DataStore = {
   body: BodyType
@@ -17,18 +20,23 @@ type DataStore = {
   }
 }
 
-type Extracted = ExtractedFlights[] | undefined
-
-const FlightsList: React.FC<QueryParams> = (props) => {
+const FlightsList = (props: QueryParams): JSX.Element => {
   const location: LocationParams = useLocation()
   const { data } = useFlightsQuery<{ data: DataStore }>(props.dateQuery)
 
-  const extractedFlights: Extracted = getFlightInfo(data?.body, location)
+  const extractedFlights = getFlightInfo(data?.body, location)
+  const filteredbyQuery = filterFlights(extractedFlights, props)
 
-  return !extractedFlights?.length ? (
-    <NoFlight />
-  ) : (
-    <Flight queryParams={props} extractedFlights={extractedFlights} />
+  return (
+    <>
+      {!filteredbyQuery?.length ? (
+        <NoFlight />
+      ) : (
+        filteredbyQuery?.map((flight: ExtractedFlights) => (
+          <Flight key={uuidv4()} {...flight} />
+        ))
+      )}
+    </>
   )
 }
 
